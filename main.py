@@ -9,7 +9,7 @@ def plot_loss_curves(histor):
 
   
   def loadprep_image(filepath, shape=(224, 224)):
-    "Returns a normalized and reshaped image."
+    "Returns a normalized and reshaped image as size 1 batch"
     image = plt.imread(filepath)
     image = tf.expand_dims(tf.image.resize(image, size=shape)/255, axis=0)
     return image
