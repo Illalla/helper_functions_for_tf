@@ -6,3 +6,10 @@ def plot_loss_curves(histor):
     list_name[i] = ax[i].plot(histor.history[lis[i]])
     ax[i].set(title=f'{lis[i]}')
   fig.tight_layout()
+
+  
+  def loadprep_image(filepath, shape=(224, 224)):
+    "Returns a normalized and reshaped image."
+    image = plt.imread(filepath)
+    image = tf.expand_dims(tf.image.resize(image, size=shape)/255, axis=0)
+    return image
