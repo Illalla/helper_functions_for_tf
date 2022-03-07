@@ -13,3 +13,15 @@ def plot_loss_curves(histor):
     image = plt.imread(filepath)
     image = tf.expand_dims(tf.image.resize(image, size=shape)/255, axis=0)
     return image
+
+  
+import random, os
+def plot_random_image(filepath, label):
+  # Takes filepath and label of an image and plots it
+  folder_path = filepath + '/' + label
+  listdir = os.listdir(folder_path)
+  image_path = folder_path + '/' + random.sample(listdir, 1)[0]
+  image = plt.imread(image_path)
+  plt.imshow(image)
+  plt.title(f'Label = {label}, shape = {image.shape}')
+  plt.axis('off')
