@@ -25,3 +25,18 @@ def plot_random_image(filepath, label):
   plt.imshow(image)
   plt.title(f'Label = {label}, shape = {image.shape}')
   plt.axis('off')
+
+def plot_prediction(filepath, classnames, model):
+  # Plots an image with predicted label and prediction probability
+  img = loadprep_image(filepath)
+  prediction = model.predict(img)
+
+  if len(prediction[0]) > 1:
+    pred_class = classnames[tf.argmax(prediction).numpy()[0]]
+    prob = tf.math.reduce_max(prediction).numpy()
+  else:
+    pred_class = classnames[tf.round(prediction).numpy()[0]]
+    prob = prediction.numpy()
+
+  plt.imshow(plt.imread(filepath))
+  plt.title(f'{pred_class}, {100 * prob:.2f}%')
