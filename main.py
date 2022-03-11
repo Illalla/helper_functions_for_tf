@@ -35,8 +35,11 @@ def plot_prediction(filepath, classnames, model):
     pred_class = classnames[tf.argmax(prediction).numpy()[0]]
     prob = tf.math.reduce_max(prediction).numpy()
   else:
-    pred_class = classnames[tf.round(prediction).numpy()[0]]
-    prob = prediction.numpy()
+    pred_class = classnames[int(np.round(prediction)[0][0])]
+    if pred_class == classnames[0]:
+      prob = 1-prediction[0][0]
+    else:
+      prob = prediction[0][0]
 
   plt.imshow(plt.imread(filepath))
   plt.title(f'{pred_class}, {100 * prob:.2f}%')
