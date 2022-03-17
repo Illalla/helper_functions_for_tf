@@ -43,3 +43,11 @@ def plot_prediction(filepath, classnames, model):
 
   plt.imshow(plt.imread(filepath))
   plt.title(f'{pred_class}, {100 * prob:.2f}%')
+
+  from tensorflow.keras.callbacks import EarlyStopping, TensorBoard
+import datetime
+
+def create_tb_callback(name, dir):
+  log_dir = dir + '/' + name + '/' + datetime.datetime.now().strftime('%Y%m%d-%H%M%')
+  tensorboard_callback = TensorBoard(log_dir=log_dir)
+  return tensorboard_callback
