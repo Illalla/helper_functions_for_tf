@@ -1,11 +1,16 @@
-def plot_loss_curves(histor):
-  lis = list(histor.history.keys())
-  list_name = lis.copy()
-  fig, ax = plt.subplots(nrows=len(lis), figsize=(10, 10))
-  for i in range(len(lis)):
-    list_name[i] = ax[i].plot(histor.history[lis[i]])
-    ax[i].set(title=f'{lis[i]}')
-  fig.tight_layout()
+plot_loss_curves(history, figsize=(10, 6)):
+  plot_number = int(len(history.history.keys()) / 2)
+  fig, ax = plt.subplots(nrows=plot_number, figsize=figsize)
+  histlist = []
+  i = 0
+  for x in history.history.keys():
+    if 'val' not in x:
+      ax[i].plot(history.history[str(x)], label= str(x))
+      ax[i].plot(history.history['val'+'_'+str(x)], label= 'val' + '_' + str(x))
+      ax[i].set(title=x)
+      ax[i].legend()
+      i += 1
+
 
   
   def loadprep_image(filepath, shape=(224, 224)):
