@@ -1,4 +1,4 @@
-plot_loss_curves(history, figsize=(10, 6)):
+def plot_loss_curves(history, figsize=(10, 6)):
   plot_number = int(len(history.history.keys()) / 2)
   fig, ax = plt.subplots(nrows=plot_number, figsize=figsize)
   histlist = []
@@ -10,6 +10,8 @@ plot_loss_curves(history, figsize=(10, 6)):
       ax[i].set(title=x)
       ax[i].legend()
       i += 1
+  fig.tight_layout()
+
 
 
   
