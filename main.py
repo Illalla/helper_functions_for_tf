@@ -1,7 +1,7 @@
 def plot_loss_curves(history, figsize=(10, 6)):
+  # Plots training and validation curves
   plot_number = int(len(history.history.keys()) / 2)
   fig, ax = plt.subplots(nrows=plot_number, figsize=figsize)
-  histlist = []
   i = 0
   for x in history.history.keys():
     if 'val' not in x:
