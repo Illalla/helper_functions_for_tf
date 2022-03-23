@@ -58,3 +58,9 @@ def create_tb_callback(name, dir):
   log_dir = dir + '/' + name + '/' + datetime.datetime.now().strftime('%Y%m%d-%H%M%')
   tensorboard_callback = TensorBoard(log_dir=log_dir)
   return tensorboard_callback
+
+import os
+
+def walk_dir(dir_path):
+  for dirpath, dirnames, filenames in os.walk(dir_path):
+    print(f'There are {len(dirnames)} directories and {len(filenames)} files in {dirpath}.')
