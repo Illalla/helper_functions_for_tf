@@ -54,6 +54,7 @@ def plot_prediction(filepath, classnames, model):
   from tensorflow.keras.callbacks import EarlyStopping, TensorBoard
 import datetime
 
+from tensorflow.keras.callbacks import TensorBoard
 def create_tb_callback(name, dir):
   log_dir = dir + '/' + name + '/' + datetime.datetime.now().strftime('%Y%m%d-%H%M%')
   tensorboard_callback = TensorBoard(log_dir=log_dir)
