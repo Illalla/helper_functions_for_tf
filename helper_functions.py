@@ -1,3 +1,12 @@
+import matplotlib.pyplot as plt
+import tensorflow as tf
+from tensorflow.keras.callbacks import TensorBoard
+import pandas as pd
+import numpy as np
+import datetime
+import os
+import random
+
 def plot_loss_curves(history, figsize=(10, 6)):
   # Plots training and validation curves
   plot_number = int(len(history.history.keys()) / 2)
@@ -22,7 +31,6 @@ def plot_loss_curves(history, figsize=(10, 6)):
     return image
 
   
-import random, os
 def plot_random_image(filepath, label):
   # Takes filepath and label of an image and plots it
   folder_path = filepath + '/' + label
@@ -51,16 +59,13 @@ def plot_prediction(filepath, classnames, model):
   plt.imshow(plt.imread(filepath))
   plt.title(f'{pred_class}, {100 * prob:.2f}%')
 
-  from tensorflow.keras.callbacks import EarlyStopping, TensorBoard
-import datetime
 
-from tensorflow.keras.callbacks import TensorBoard
+
 def create_tb_callback(name, dir):
   log_dir = dir + '/' + name + '/' + datetime.datetime.now().strftime('%Y%m%d-%H%M%')
   tensorboard_callback = TensorBoard(log_dir=log_dir)
   return tensorboard_callback
 
-import os
 
 def walk_dir(dir_path):
   for dirpath, dirnames, filenames in os.walk(dir_path):
