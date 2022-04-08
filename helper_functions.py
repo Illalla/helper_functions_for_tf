@@ -7,18 +7,28 @@ import datetime
 import os
 import random
 
-def plot_loss_curves(history, figsize=(10, 6)):
+def plot_loss_curves(history, fine_tune_history=None, fine_initial_epoch=None, figsize=(10, 6)):
   # Plots training and validation curves
   plot_number = int(len(history.history.keys()) / 2)
   fig, ax = plt.subplots(nrows=plot_number, figsize=figsize)
   i = 0
   for x in history.history.keys():
-    if 'val' not in x:
-      ax[i].plot(history.history[str(x)], label= str(x))
-      ax[i].plot(history.history['val'+'_'+str(x)], label= 'val' + '_' + str(x))
-      ax[i].set(title=x)
-      ax[i].legend()
-      i += 1
+    if fine_tune_history is not None:
+      if 'val' not in x:
+        ax[i].plot(history.history[str(x)]+fine_tune_history.history[str(x)], label= str(x))
+        ax[i].plot(history.history['val'+'_'+str(x)]+fine_tune_history.history['val'+'_'+ str(x)], label= 'val' + '_' + str(x))
+        if fine_tune_history is not None:
+          ax[i].plot([fine_initial_epoch-1, fine_initial_epoch-1], plt.ylim(), label='Fine Tuning')
+        ax[i].set(title=x)
+        ax[i].legend()
+        i += 1
+    else:
+      if 'val' not in x:
+        ax[i].plot(history.history[str(x)], label= str(x))
+        ax[i].plot(history.history['val'+'_'+str(x)], label= 'val' + '_' + str(x))
+        ax[i].set(title=x)
+        ax[i].legend()
+        i += 1
   fig.tight_layout()
 
 
