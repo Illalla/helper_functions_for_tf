@@ -34,11 +34,13 @@ def plot_loss_curves(history, fine_tune_history=None, fine_initial_epoch=None, f
 
 
   
-def loadprep_image(filepath, shape=(224, 224)):
-    "Returns a normalized and reshaped image as size 1 batch"
-    image = plt.imread(filepath)
+def loadprep_image(filepath, shape=(224, 224), scaling=True):
+  image = plt.imread(filepath)
+  if scaling:
     image = tf.expand_dims(tf.image.resize(image, size=shape)/255, axis=0)
-    return image
+  else:
+    image = tf.expand_dims(tf.image.resize(image, size=shape), axis=0)
+  return image
 
   
 def plot_random_image(filepath, label):
