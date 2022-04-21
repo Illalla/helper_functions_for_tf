@@ -6,6 +6,8 @@ import numpy as np
 import datetime
 import os
 import random
+from sklearn.metrics import confusion_matrix
+import itertools
 
 def plot_loss_curves(history, fine_tune_history=None, fine_initial_epoch=None, figsize=(10, 6)):
   # Plots training and validation curves
@@ -82,3 +84,28 @@ def create_tb_callback(name, dir):
 def walk_dir(dir_path):
   for dirpath, dirnames, filenames in os.walk(dir_path):
     print(f'There are {len(dirnames)} directories and {len(filenames)} files in {dirpath}.')
+
+def plot_confusion_matrix(y_pred, y_true, class_names=None, figsize=(10, 10), text_size=10):
+  conf_mat = confusion_matrix(y_true, y_pred)
+  num_classes=conf_mat.shape[0]
+  fig, ax = plt.subplots(figsize=figsize)
+  cax = ax.matshow(conf_mat, cmap=plt.cm.Blues)
+  fig.colorbar(cax)
+  if class_names:
+    labels = class_names
+  else:
+    labels = np.arange(conf_mat.shape[0])
+  
+  ax.set(title='Confusion Matrix',
+         xlabel='Predicted Label',
+         ylabel='True Label',
+         xticks=np.arange(num_classes),
+         yticks=np.arange(num_classes),
+         xticklabels=labels,
+         yticklabels=labels)
+  ax.xaxis.set_label_position('bottom')
+  ax.xaxis.tick_bottom()
+  for i, j in itertools.product(range(conf_mat.shape[0]), range(conf_mat.shape[1])):
+    plt.text(j, i, f"{conf_mat[i, j]}",
+      horizontalalignment="center",
+      size=text_size)
