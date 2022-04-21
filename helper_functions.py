@@ -105,6 +105,8 @@ def plot_confusion_matrix(y_pred, y_true, class_names=None, figsize=(10, 10), te
          yticklabels=labels)
   ax.xaxis.set_label_position('bottom')
   ax.xaxis.tick_bottom()
+  plt.xticks(rotation=70, fontsize=text_size)
+  plt.yticks(fontsize=text_size)
   for i, j in itertools.product(range(conf_mat.shape[0]), range(conf_mat.shape[1])):
     plt.text(j, i, f"{conf_mat[i, j]}",
       horizontalalignment="center",
