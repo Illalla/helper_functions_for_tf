@@ -8,6 +8,7 @@ import os
 import random
 from sklearn.metrics import confusion_matrix
 import itertools
+from sklearn.metrics import f1_score
 
 def plot_loss_curves(history, fine_tune_history=None, fine_initial_epoch=None, figsize=(10, 6)):
   # Plots training and validation curves
@@ -111,3 +112,29 @@ def plot_confusion_matrix(y_pred, y_true, class_names=None, figsize=(10, 10), te
     plt.text(j, i, f"{conf_mat[i, j]}",
       horizontalalignment="center",
       size=text_size)
+
+  
+def plot_f1_scores(y_true, y_preds, class_names, figsize=(10, 10), text_size=10):  
+  f1_scores = {}
+  f1 = f1_score(y_true, y_preds, average=None)
+
+  for i, class_name in enumerate(class_names):
+    f1_scores[class_name] = f1[i]
+  f1_scores_df = pd.DataFrame({'class_names':f1_scores.keys(), 'f1_score':f1_scores.values()}).sort_values('f1_score')
+
+  fig, ax = plt.subplots(figsize=figsize)
+  bar = ax.bar(f1_scores_df['class_names'], f1_scores_df['f1_score'])
+
+  mean = [f1_scores_df['f1_score'].mean()] * len(class_names)
+  plt.plot(f1_scores_df['class_names'], mean, linewidth=figsize[0]/5, color='red', linestyle='--', label='mean')
+
+  fig.suptitle('F1 Scores', fontsize = figsize[0])
+
+  ax.set(yticks=np.arange(0, 1, 0.1))
+
+  plt.xticks(rotation=70, fontsize=text_size)
+  plt.yticks(fontsize=text_size)
+
+  legend = ax.legend(loc='upper left', prop={'size': figsize[0]})
+
+  plt.show();
