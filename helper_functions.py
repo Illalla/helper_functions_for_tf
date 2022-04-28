@@ -48,7 +48,7 @@ def plot_loss_curves(history, fine_tune_history=None, fine_initial_epoch=None, f
 
 def loadprep_img(filepath, shape=(224, 224), scaling=True):
   img = tf.io.decode_image(tf.io.read_file(filepath), channels=3)
-  reshaped_img = tf.image.resize(img, shape=shape)
+  reshaped_img = tf.image.resize(img, size=shape)
   if scaling:
     return reshaped_img/255
   else:
