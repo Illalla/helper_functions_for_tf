@@ -37,13 +37,22 @@ def plot_loss_curves(history, fine_tune_history=None, fine_initial_epoch=None, f
 
 
   
-def loadprep_image(filepath, shape=(224, 224), scaling=True):
+"""def loadprep_image(filepath, shape=(224, 224), scaling=True):
   image = plt.imread(filepath)
   if scaling:
     image = tf.expand_dims(tf.image.resize(image, size=shape)/255, axis=0)
   else:
     image = tf.expand_dims(tf.image.resize(image, size=shape), axis=0)
   return image
+"""
+
+def loadprep_img(filepath, shape=(224, 224), scaling=True):
+  img = tf.io.decode_image(tf.io.read_file(filepath), channels=3)
+  reshaped_img = tf.image.resize(img, shape=shape)
+  if scaling:
+    return reshaped_img/255
+  else:
+    return reshaped_img
 
   
 def plot_random_image(filepath, label):
