@@ -56,7 +56,7 @@ def plot_random_image(filepath, label):
   plt.title(f'Label = {label}, shape = {image.shape}')
   plt.axis('off')
 
-def plot_prediction(filepath, classnames, shape=(224, 224), model, scaling=True):
+def plot_prediction(filepath, classnames, model, shape=(224, 224), scaling=True):
   # Plots an image with predicted label and prediction probability
   img = loadprep_image(filepath, shape=shape, scaling=scaling)
   prediction = model.predict(img)
