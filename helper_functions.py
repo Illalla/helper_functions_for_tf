@@ -9,6 +9,7 @@ import random
 from sklearn.metrics import confusion_matrix
 import itertools
 from sklearn.metrics import f1_score
+import time
 
 def plot_loss_curves(history, fine_tune_history=None, fine_initial_epoch=None, figsize=(10, 6)):
   # Plots training and validation curves
@@ -147,3 +148,9 @@ def plot_f1_scores(y_true, y_preds, class_names, figsize=(10, 10), text_size=10)
   legend = ax.legend(loc='upper left', prop={'size': figsize[0]})
 
   plt.show();
+
+ def time_pred(model, data):
+  start = time.perf_counter()
+  model.predict(data)
+  end = time.perf_counter()
+  return end-start
