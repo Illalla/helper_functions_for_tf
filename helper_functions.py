@@ -149,7 +149,7 @@ def plot_f1_scores(y_true, y_preds, class_names, figsize=(10, 10), text_size=10)
 
   plt.show();
 
- def time_pred(model, data):
+def time_pred(model, data):
   start = time.perf_counter()
   model.predict(data)
   end = time.perf_counter()
