@@ -154,3 +154,29 @@ def time_pred(model, data):
   model.predict(data)
   end = time.perf_counter()
   return end-start
+
+def preprocess(filenames):
+  """Takes filenames and returns lists of dictionaries containing line number, target, text and total lines"""
+  lines = get_lines(filenames)
+  abstract_samples = []
+  abstract_lines = ''
+
+
+  for line in lines:
+    if line.startswith('###'):
+      id = line[:-1]
+    elif line.isspace():
+      abstract_line_split = abstract_lines.splitlines()
+      abstract_lines = ''
+      
+      for i, a in enumerate(abstract_line_split):
+        split = a.split('\t')
+        total_lines = len(abstract_line_split)-1
+        abstract_samples.append({'id': id,
+                                 'line_number': i,
+                                 'target': split[0],
+                                 'text': split[1],
+                                 'total_lines': total_lines})
+    else:
+      abstract_lines += line
+  return abstract_samples
