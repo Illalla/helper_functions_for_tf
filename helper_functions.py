@@ -155,7 +155,7 @@ def time_pred(model, data):
   end = time.perf_counter()
   return end-start
 
-def preprocess(filenames):
+def preprocess_abstracts(filenames):
   """Takes filenames and returns lists of dictionaries containing line number, target, text and total lines"""
   lines = get_lines(filenames)
   abstract_samples = []
