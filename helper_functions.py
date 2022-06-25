@@ -10,6 +10,7 @@ from sklearn.metrics import confusion_matrix
 import itertools
 from sklearn.metrics import f1_score
 import time
+from sklearn.metrics import recall_score, f1_score, precision_score, accuracy_score
 
 def plot_loss_curves(history, fine_tune_history=None, fine_initial_epoch=None, figsize=(10, 6)):
   # Plots training and validation curves
@@ -180,3 +181,11 @@ def preprocess_abstracts(filenames):
     else:
       abstract_lines += line
   return abstract_samples
+
+def classification_scores(y_true, y_preds, average):
+  """Shows accuracy, precision, recall and f1-score""" 
+  
+  print(f"""Accuracy: {accuracy_score(y_true, y_preds)}
+Precision: {precision_score(y_true, y_preds, average=average)}
+Recall: {recall_score(y_true, y_preds, average=average)}
+F1_score: {f1_score(y_true, y_preds, average=average)}""")
