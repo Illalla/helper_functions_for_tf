@@ -182,7 +182,7 @@ def preprocess_abstracts(filenames):
       abstract_lines += line
   return abstract_samples
 
-def classification_scores(y_true, y_preds, average):
+def classification_scores(y_true, y_preds, average='weighted'):
   """Shows accuracy, precision, recall and f1-score""" 
   
   print(f"""Accuracy: {accuracy_score(y_true, y_preds)}
