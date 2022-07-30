@@ -189,3 +189,11 @@ def classification_scores(y_true, y_preds, average='weighted'):
 Precision: {precision_score(y_true, y_preds, average=average)}
 Recall: {recall_score(y_true, y_preds, average=average)}
 F1_score: {f1_score(y_true, y_preds, average=average)}""")
+
+def mean_absolute_scaled_error(y_true, y_pred):
+  """
+  Calculates MASE (assuming no seasonality)
+  """
+  naive_mae = tf.reduce_mean(tf.abs(y_true[1:]-y_true[:-1]))
+  mae = tf.reduce_mean(tf.abs(y_true - y_pred))
+  return mae/naive_mae
