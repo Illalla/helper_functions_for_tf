@@ -197,3 +197,19 @@ def mean_absolute_scaled_error(y_true, y_pred):
   naive_mae = tf.reduce_mean(tf.abs(y_true[1:]-y_true[:-1]))
   mae = tf.reduce_mean(tf.abs(y_true - y_pred))
   return mae/naive_mae
+
+def forecasting_scores(y_true, y_pred):
+  y_true = tf.cast(y_true, dtype=tf.float32)
+  y_pred = tf.cast(y_pred, dtype=tf.float32)
+
+  mae = tf.keras.metrics.mean_absolute_error(y_true, y_pred).numpy()
+  mse = tf.keras.metrics.mean_squared_error(y_true, y_pred).numpy()
+  rmse = tf.keras.metrics.RootMeanSquaredError()(y_true, y_pred).numpy()
+  mape = tf.keras.metrics.mean_absolute_percentage_error(y_true, y_pred).numpy()
+  mase = mean_absolute_scaled_error(y_true, y_pred).numpy()
+  
+  return {'mae': mae,
+          'mse': mse,
+          'rmse': rmse,
+          'mape': mape,
+          'mase': mase}
