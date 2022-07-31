@@ -12,6 +12,7 @@ from sklearn.metrics import f1_score
 import time
 from sklearn.metrics import recall_score, f1_score, precision_score, accuracy_score
 
+
 def plot_loss_curves(history, fine_tune_history=None, fine_initial_epoch=None, figsize=(10, 6)):
   # Plots training and validation curves
   plot_number = int(len(history.history.keys()) / 2)
@@ -213,3 +214,12 @@ def forecasting_scores(y_true, y_pred):
           'rmse': rmse,
           'mape': mape,
           'mase': mase}
+
+def windows_and_horizons(values, horizon_size=HORIZON_SIZE, window_size=WINDOW_SIZE):
+  """
+  Returns windows and horizons of given shapes
+  values: values that are to be ordered
+  """
+  windows = np.array([(values[i: i + window_size]) for i in range(len(values)-window_size-horizon_size+1)])
+  horizons = np.array([values[i + window_size: i + window_size + horizon_size] for i in range(len(values)-window_size-horizon_size+1)])
+  return windows, horizons
