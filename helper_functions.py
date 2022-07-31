@@ -215,7 +215,7 @@ def forecasting_scores(y_true, y_pred):
           'mape': mape,
           'mase': mase}
 
-def windows_and_horizons(values, horizon_size=q, window_size=7):
+def windows_and_horizons(values, horizon_size=1, window_size=7):
   """
   Returns windows and horizons of given shapes
   values: values that are to be ordered
