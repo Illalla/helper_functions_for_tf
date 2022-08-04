@@ -223,3 +223,16 @@ def windows_and_horizons(values, horizon_size=1, window_size=7):
   windows = np.array([(values[i: i + window_size]) for i in range(len(values)-window_size-horizon_size+1)])
   horizons = np.array([values[i + window_size: i + window_size + horizon_size] for i in range(len(values)-window_size-horizon_size+1)])
   return windows, horizons
+
+def create_cp_callback(name, save_path='experiments/checkpoints', save_best_only=False, save_weights_only=False, monitor='val_loss'):
+  """
+  Creates a model checkpoint callback.
+  Args:
+    name - name of the model
+    save_path - place where the checkpoint will be stored
+    save_best_only - if True it saves only the best results, if False it saves the last result
+    save_weights_only - if True it saves only weights, if False it saves the whole model
+    monitor - what value it will take into account
+  """
+
+  return tf.keras.callbacks.ModelCheckpoint(filepath=os.path.join(save_path, name), save_best_only=save_best_only, save_weights_only=save_weights_only, monitor=monitor, verbose=0)
