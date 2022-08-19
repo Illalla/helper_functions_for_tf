@@ -227,7 +227,7 @@ def windows_and_horizons(values, horizon_size=1, window_size=7):
   horizons = np.array([values[i + window_size: i + window_size + horizon_size] for i in range(len(values)-window_size-horizon_size+1)])
   return windows, horizons
 
-def create_cp_callback(name, save_path='experiments/checkpoints', save_best_only=False, save_weights_only=False, monitor='val_loss'):
+def create_cp_callback(name, save_path='experiments/checkpoints', save_best_only=True, save_weights_only=False, monitor='val_loss'):
   """
   Creates a model checkpoint callback.
   Args:
