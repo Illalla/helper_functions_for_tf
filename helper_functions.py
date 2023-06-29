@@ -239,3 +239,13 @@ def create_cp_callback(name, save_path='experiments/checkpoints', save_best_only
   """
 
   return tf.keras.callbacks.ModelCheckpoint(filepath=os.path.join(save_path, name), save_best_only=save_best_only, save_weights_only=save_weights_only, monitor=monitor, verbose=0)
+
+def preprocess_image(image, label, target_image_shape, normalization_factor=None):
+  """
+  Takes an image and its label and changes its shape. If normalization_factor is not None, normalizes it.
+  """
+  image = tf.image.resize(image, [target_image_shape, target_image_shape])
+
+  if normalization_factor:
+    image /= normalization_factor
+  return image, label
